@@ -50,7 +50,7 @@ public class GestionTienda {
     }
 
     public static void mostrarMenu() {
-        System.out.println("\n** Menú de Gestión de Tienda **");
+        System.out.println("\n**  ¡Cordial Saludo! Menú de Gestión de Tienda **");
         System.out.println("1. Agregar nuevo producto");
         System.out.println("2. Mostrar todos los productos");
         System.out.println("3. Calcular valor total del inventario");
