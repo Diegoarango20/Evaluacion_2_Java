@@ -8,6 +8,16 @@ public class GestionTienda {
     static ArrayList<String> nombresProductos = new ArrayList<>();
     static ArrayList<Double> preciosProductos = new ArrayList<>();
 
+    public static void mostrarMenu() {
+        System.out.println("\n**  ¡Cordial Saludo! Menú de Gestión de Tienda **");
+        System.out.println("1. Agregar nuevo producto");
+        System.out.println("2. Mostrar todos los productos");
+        System.out.println("3. Calcular valor total del inventario");
+        System.out.println("4. Buscar producto por nombre");
+        System.out.println("5. Salir");
+        System.out.println("************************************************");
+    }
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -33,13 +43,13 @@ public class GestionTienda {
                 case 3:
                     double total = calcularValorTotal(preciosProductos);
 
-                    System.out.printf("El valor total del inventario es: $%.2f\n", total);
+                    System.out.printf("El valor total del inventario es: $%,.2f\n", total);
                     break;
                 case 4:
-                    buscarProducto(sc, nombresProductos);
+                    buscarProducto(sc, nombresProductos, preciosProductos);
                     break;
                 case 5:
-                    System.out.println("Que termines de pasar un buen día. Hasta luego");
+                    System.out.println("Que termines de pasar un buen día. Hasta luego !!");
                     break;
                 default:
                     System.out.println("Opción errada. Intenta de nuevo.");
@@ -47,16 +57,6 @@ public class GestionTienda {
         } while (opcion != 5);
 
         sc.close();
-    }
-
-    public static void mostrarMenu() {
-        System.out.println("\n**  ¡Cordial Saludo! Menú de Gestión de Tienda **");
-        System.out.println("1. Agregar nuevo producto");
-        System.out.println("2. Mostrar todos los productos");
-        System.out.println("3. Calcular valor total del inventario");
-        System.out.println("4. Buscar producto por nombre");
-        System.out.println("5. Salir");
-        System.out.println("************************************************");
     }
 
     // Opción 1 -- Agregar producto
@@ -70,7 +70,7 @@ public class GestionTienda {
 
         nombresProductos.add(nombre);
         preciosProductos.add(precio);
-        System.out.println("Se agrego el producto correctamente");
+        System.out.println("Se agrego el producto correctamente !!");
     }
 
     // Opción 2 -- Mostrar los productos
@@ -82,7 +82,7 @@ public class GestionTienda {
         } else {
             System.out.println("\nLista de productos:");
             for (int i = 0; i < nombresProductos.size(); i++) {
-                System.out.printf("Producto: %s | Precio: $%.2f\n", nombresProductos.get(i), preciosProductos.get(i));
+                System.out.printf("Producto: %s | Precio: $%,.2f\n", nombresProductos.get(i), preciosProductos.get(i));
             }
         }
     }
@@ -101,28 +101,29 @@ public class GestionTienda {
 
     // Opción 4 -- Buscar producto por nombre
 
-    public static void buscarProducto(Scanner sc, ArrayList<String> nombresProductos) {
+    public static int buscarProductoPorNombre(String nombre, ArrayList<String> nombresProductos) {
+        for (int i = 0; i < nombresProductos.size(); i++) {
+            if (nombresProductos.get(i).equalsIgnoreCase(nombre)) {
+                return i;
+            }
+        }
+        return -1;
+
+    }
+
+    public static void buscarProducto(Scanner sc, ArrayList<String> nombresProductos,
+            ArrayList<Double> preciosProductos) {
         System.out.print("Ingrese el nombre del producto que desea buscar: ");
         String nombre = sc.nextLine();
 
         int indice = buscarProductoPorNombre(nombre, nombresProductos);
 
         if (indice >= 0) {
-            System.out.printf("Producto encontrado: %s | Precio: $%.2f\n", nombresProductos.get(indice),
+            System.out.printf("Producto encontrado: %s -- Precio: $%,.2f\n", nombresProductos.get(indice),
                     preciosProductos.get(indice));
         } else {
             System.out.println("No se encotro el producto");
         }
     }
 
-
-    public static int buscarProductoPorNombre(String nombre, ArrayList<String> nombresProductos) {
-        for (int i = 0; i < nombresProductos.size(); i++) {
-            if (nombresProductos.get(i).equals(nombre)) {
-                return i; 
-            }
-        }
-        return -1; 
-
-    }
 }
